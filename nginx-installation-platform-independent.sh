@@ -1,17 +1,16 @@
 #!/bin/bash
-echo "To install NGINX on your Machine, Press y/n : "
+echo "To install NGINX on your Machine, Press 1 : "
 read input
-if [ $input == y ];
+if [ $input == 1 ];
 then
 echo "Installing NGINX ..."
 echo "Checking your OS"
 echo "Fetching... :)"
-
-if [ `uname -a | grep Ubuntu`=='Ubuntu' ] || [`uname -a | grep Debian`=='Debian'];
+if [ `cat /etc/os-release | grep ^NAME | grep Ubuntu`=='Ubuntu' ] || [ `cat /etc/os-release | grep ^NAME | grep Debian`=='Debian' ];
 then
 	sudo apt update
 	sudo apt install nginx
-elif [ `uname -a | grep Red`=='Red' ] || [`uname -a | grep Fedora`=='Fedora' ] || [`uname -a | grep CentOs`=='CentOs' ];
+elif [`cat /etc/os-release | grep ^NAME | grep Red`=='Red' ] || [ `cat /etc/os-release | grep ^NAME | grep CentOS`=='CentOS' ] || [ `cat /etc/os-release | grep ^NAME | grep Fedora`=='Fedora' ];
 then
 	sudo yum install epel-release
 	sudo yum update
@@ -21,7 +20,7 @@ else
 	sudo pacman -S nginx
 fi
 fi
-if [ $input ==y ];
+if [ $input == 1 ];
 then
 	echo "Installation Completed. Enjoy Nginx ;)"
 else
