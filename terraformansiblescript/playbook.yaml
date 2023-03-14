@@ -1,0 +1,24 @@
+---
+- hosts: all
+  name: Install nginx
+  become: yes
+  tasks:
+    - name: update package
+      apt:
+        update_cache: yes
+    - name: Install Nginx on Ubuntu
+      apt:
+        name: nginx
+        state: latest
+
+          #  - name: start nginx
+          #  state: started
+
+    - name: Create file on nginx
+      copy:
+        content: "HI TTN"
+        dest: /var/www/html/index.html
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
